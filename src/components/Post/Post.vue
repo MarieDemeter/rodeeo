@@ -62,7 +62,7 @@ export default {
             ownerId: false,
             newComment: {
                 message: "",
-                owner: "60d0fe4f5311236168a109ca",
+                owner: "",
             },
             comments: [],
             error: false
@@ -137,6 +137,9 @@ export default {
     mounted() {
         this.postId = this.$route.params.id;
         this.printPost(this.postId);
+        if (sessionStorage.getItem("id")) {
+            this.newComment.owner = sessionStorage.getItem("id");
+        }
     }
 }
 </script>

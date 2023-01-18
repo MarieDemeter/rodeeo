@@ -57,6 +57,7 @@ export default {
 				let user = await axios.post('user/create', formData);
 				this.create = true;
 				this.newUser.id = user.data.id;
+				sessionStorage.setItem("id", user.data.id);
 			} catch (error) {
 				console.log(error);
 			}

@@ -15,7 +15,7 @@
                 <input type="text" class="form-control" id="tags" v-model="newPost.tags" required>
             </div>
             <div class="form-group">
-                <label for="owner">Identifiant de l'utilisateur :</label>
+                <label for="owner">Identifiant de l'utilisateur (si il n'est pas renseigné veuillez créer un nouvel utilisateur):</label>
                 <input type="text" class="form-control" id="owner" v-model="newPost.owner">
             </div>
             <button type="submit" class="btn btn-cream">Publier</button>
@@ -34,7 +34,7 @@ export default {
                 image: '',
                 likes: 0,
                 tags: [],
-                owner: '60d0fe4f5311236168a109ca',
+                owner: '',
             },
         };
     },
@@ -59,5 +59,10 @@ export default {
             }
         },
     },
+	mounted() {
+        if (sessionStorage.getItem("id")) {
+            this.newPost.owner = sessionStorage.getItem("id");
+        }
+	}
 };
 </script>
