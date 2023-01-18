@@ -4,10 +4,13 @@
 		<div v-if="!error">
 			<div class="row">
 				<div v-for="user in users" :key="user.id" class="card mb-3 col-3">
-					<img :src="user.picture" alt="photo de l'utilisateur"
-						style="object-fit: cover; width: 100px;" class="m-auto" />
+					<img :src="user.picture" alt="photo de l'utilisateur" style="object-fit: cover; width: 100px;"
+						class="m-auto" />
 					<div class="card-body text-center">
-						<h5 class="card-title text-cream">{{ user.title }} {{ user.firstName }} {{ user.lastName }}</h5>
+						<h5 class="card-title text-cream">{{ user.title }} {{ user.firstName }} {{ user.lastName }}
+						</h5>
+						<router-link :to="{ name: 'User', params: { id: user.id } }"
+							class="btn btn-light-cream w-25 m-auto">Voir</router-link>
 					</div>
 				</div>
 			</div>
@@ -32,7 +35,7 @@ export default {
 		async reload() {
 			try {
 				let usersData = await axios.get("user");
-                console.log(usersData);
+				console.log(usersData);
 				this.users = usersData.data.data.map((user) => {
 					return {
 						id: user.id,
