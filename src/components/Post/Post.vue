@@ -26,7 +26,7 @@
                             <input type="text" class="form-control" id="message" v-model="newComment.message" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Identifiant de l'utilisateur :</label>
+                            <label for="image">Identifiant de l'utilisateur (si il n'est pas renseigné veuillez créer un nouvel utilisateur):</label>
                             <input type="text" class="form-control" id="image" v-model="newComment.owner" required>
                         </div>
                         <button type="submit" class="btn btn-cream">Commenter</button>
