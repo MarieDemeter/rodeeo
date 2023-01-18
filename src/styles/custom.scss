@@ -1,0 +1,11 @@
+$theme-colors :(
+    "cream":#ce8460,
+    "light-cream":#f8efea,
+);
+
+@import '/node_modules/bootstrap/scss/bootstrap.scss';
+@import 'node_modules/bootstrap-vue/src/index.scss';
+
+.card{
+    border: none;
+}
