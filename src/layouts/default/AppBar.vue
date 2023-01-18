@@ -23,8 +23,8 @@
             </template>
 
             <v-list>
-                <v-list-item v-for="item in articles" :key="item">
-                    <router-link :to="{ name: 'Posts' }" class="btn text-uppercase text-cream">{{item.title}}</router-link>
+                <v-list-item v-for="item in users" :key="item">
+                    <router-link :to="{ name: item.route }" class="btn text-uppercase text-cream">{{item.title}}</router-link>
                 </v-list-item>
             </v-list>
             
@@ -45,7 +45,17 @@ export default {
                     title: "Ecrire un article",
                     route: "AddPost"
                 },
-            ]
+            ],
+            users: [
+                {
+                    title: "Tous les utilisateurs",
+                    route: "Users"
+                },
+                {
+                    title: "Créer un utilisateur",
+                    route: "AddUser"
+                },
+            ],
         }
     },
 }
