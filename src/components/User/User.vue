@@ -3,7 +3,7 @@
         <div v-if="!error" class="card m-auto w-50">
             <div class="card-body m-auto text-center">
                 <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
-                <img :src="user.picture" alt="image de l'utilisateur"/>
+                <img :src="user.picture" alt="image de l'utilisateur" class="w-25 m-auto"/>
                 <div class="card-body">
                     <!-- Update user -->
                     <router-link :to="{ name: 'UpdateUser', params: { id: userId } }" class="btn btn-light-cream m-2">
