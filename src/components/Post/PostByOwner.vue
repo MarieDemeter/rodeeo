@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <h2>OK</h2>
         <div v-if="!error">
             <div class="row">
                 <div v-for="post in posts" :key="post.id" class="card col-3 mb-3">
