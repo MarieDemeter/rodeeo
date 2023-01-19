@@ -16,17 +16,16 @@
                         </router-link>
                     </div>
                     <!-- Comments -->
-                    <ul v-for="comment in comments" class="m-4">
-                        <li><span class="text-cream">{{ comment.message }}</span>
-                            {{ comment.owner.firstName }} {{ comment.owner.lastName }} <button @click="deleteComment(comment.id)" class="btn btn-light-cream">Supprimer</button></li>
-                    </ul>
+                    <Comments />
                     <form @submit.prevent="addComment" class="w-50 bg-light-cream p-3 mb-3">
                         <div class="form-group">
                             <label for="message">Commentaire :</label>
                             <input type="text" class="form-control" id="message" v-model="newComment.message" required>
                         </div>
                         <div class="form-group">
-                            <label for="image">Identifiant de l'utilisateur (si il n'est pas renseigné veuillez créer un nouvel utilisateur):</label>
+                            <label for="image">Identifiant de l'utilisateur (si il n'est pas renseigné veuillez créer un
+                                nouvel
+                                utilisateur):</label>
                             <input type="text" class="form-control" id="image" v-model="newComment.owner" required>
                         </div>
                         <button type="submit" class="btn btn-cream">Commenter</button>
@@ -52,6 +51,7 @@
 
 <script>
 import axios from "axios";
+import Comments from "@/components/Comment/Comments.vue";
 
 export default {
     data() {
@@ -60,49 +60,27 @@ export default {
             post: {},
             owner: {},
             ownerId: false,
+            error: false,
             newComment: {
                 message: "",
                 owner: "",
             },
-            comments: [],
-            error: false
         }
+    },
+    components: {
+        Comments,
     },
     methods: {
         async printPost(postId) {
             try {
                 let postData = await axios.get("/post/" + postId);
-                let commentsData = await axios.get("/post/" + postId + "/comment");
                 if (postData.data) {
                     this.post = postData.data;
                     this.owner = postData.data.owner;
                     this.ownerId = this.owner.id;
-                    if (commentsData.data) {
-                        this.comments = commentsData.data.data.map((comment) => {
-                            return {
-                                id: comment.id,
-                                message: comment.message,
-                                owner: {
-                                    firstName: comment.owner.firstName,
-                                    lastName: comment.owner.lastName,
-                                }
-                            };
-                        });
-                    }
                 } else {
                     this.error = true;
                 }
-            } catch (e) {
-                this.error = true;
-                console.log(e);
-            }
-        },
-
-        deletePost() {
-            try {
-                axios.delete('post/' + this.postId);
-                alert("Le post a bien été supprimé");
-                this.$router.push({ name: 'Posts' });
             } catch (e) {
                 this.error = true;
                 console.log(e);
@@ -123,11 +101,11 @@ export default {
             }
         },
 
-        deleteComment(commentId) {
+        deletePost() {
             try {
-                axios.delete('comment/' + commentId);
-                alert("Le commentaire a bien été supprimé");                
-                window.location.reload();
+                axios.delete('post/' + this.postId);
+                alert("Le post a bien été supprimé");
+                this.$router.push({ name: 'Posts' });
             } catch (e) {
                 this.error = true;
                 console.log(e);
@@ -137,9 +115,6 @@ export default {
     mounted() {
         this.postId = this.$route.params.id;
         this.printPost(this.postId);
-        if (sessionStorage.getItem("id")) {
-            this.newComment.owner = sessionStorage.getItem("id");
-        }
     }
 }
 </script>
